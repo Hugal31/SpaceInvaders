@@ -17,6 +17,8 @@ public:
 
     void display(SDLDisplay &, Uint x, Uint y);
 
+    Uint w() const { return _sprite.w(); }
+
 private:
     Image &_sprite;
     int _pv;

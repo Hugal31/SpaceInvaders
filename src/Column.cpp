@@ -2,13 +2,15 @@
 // Created by laloge_h on 02/04/2016.
 //
 
+#include <algorithm>
 #include <vector>
 #include "Column.hh"
 
-const Uint	moveCooldown = 500;
+const Uint	moveCooldown = 50;
 
 Column::Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies)
-  : _x (x)
+  : _direction (RIGHT)
+  , _x (x)
 {
   for (Uint i = 0; i < nbEnemies; i++)
   {
@@ -27,19 +29,47 @@ void Column::display(SDLDisplay &display)
 {
   for (Uint y = 0; y < _enemies.size(); y++)
   {
-    _enemies[y].display(display, _x, y * 50);
+    _enemies[y].display(display, _x, _y + y * 50);
   }
 }
 
-void Column::run(Uint speed)
+void Column::move(Uint speed, Uint maxX)
 {
   Uint lastTick = SDL_GetTicks();
   _timeLeft += lastTick - _firstTick;
   _firstTick = lastTick;
 
+  // Faites pas gaffe à cette ligne ;)
+  Uint maxSize = std::max_element(_enemies.begin(), _enemies.end(), [] (const Enemy &a, const Enemy &b) -> bool { return a.w() < b.w(); } )->w();
+
   while (_timeLeft > moveCooldown)
   {
-    _x += speed;
+    if (_direction == RIGHT)
+    {
+      if (_x + maxSize + speed < maxX)
+      {
+	_x += speed;
+      }
+      else
+      {
+	_x = maxX - maxSize;
+	_direction = LEFT;
+	_y += 10;
+      }
+    }
+    else
+    {
+      if (_x >= speed)
+      {
+	_x -= speed;
+      }
+      else
+      {
+	_x = 0;
+	_y += 10;
+	_direction = RIGHT;
+      }
+    }
     _timeLeft -= moveCooldown;
   }
 }

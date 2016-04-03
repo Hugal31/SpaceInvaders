@@ -10,15 +10,22 @@
 
 class Column
 {
+private:
+    enum Direction {
+	LEFT,
+	RIGHT
+    };
+
 public:
     Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies);
     ~Column();
 
     void display(SDLDisplay &display);
-    void run(Uint speed);
+    void move(Uint speed, Uint maxX);
 
 private:
     std::vector<Enemy> _enemies;
+    Direction _direction;
     Uint _x;
     Uint _y;
     Uint _firstTick;
