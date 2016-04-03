@@ -37,11 +37,15 @@ void Shooter::move(bool left, bool right, Uint speed, Uint maxX)
     {
       if (_x + speed + _sprite.w() < maxX)
 	_x += speed;
+      else
+	_x = maxX - _sprite.w();
     }
     if (left)
     {
       if (_x >= speed)
 	_x -= speed;
+      else
+	_x = 0;
     }
     _timeLeft -= moveTime;
   }
