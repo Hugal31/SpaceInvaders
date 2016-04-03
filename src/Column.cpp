@@ -27,9 +27,12 @@ Column::~Column()
 
 void Column::display(SDLDisplay &display)
 {
-  for (Uint y = 0; y < _enemies.size(); y++)
+  Uint y = _y;
+
+  for (Enemy &enemy : _enemies)
   {
-    _enemies[y].display(display, _x, _y + y * 50);
+    enemy.display(display, _x, y);
+    y += enemy.h() + 10;
   }
 }
 
@@ -71,5 +74,33 @@ void Column::move(Uint speed, Uint maxX)
       }
     }
     _timeLeft -= moveCooldown;
+  }
+}
+
+void Column::checkCollisions(std::list<Laser> &lasers)
+{
+  Uint y = _y;
+
+  for (Enemy &enemy : _enemies)
+  {
+    if (enemy.isAlive())
+    {
+      auto it = lasers.begin();
+
+      while (it != lasers.end())
+      {
+	if (!((it->x() >= _x + enemy.w())
+	      || (it->x() + it->w() <= _x)
+	      || (it->y() >= y + enemy.h())
+	      || (it->y() + it->h() <= y)))
+	{
+	  enemy.hit();
+	  it = lasers.erase(it);
+	}
+	else
+	  it++;
+      }
+    }
+    y += enemy.h() + 10;
   }
 }

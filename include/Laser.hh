@@ -24,12 +24,20 @@ public:
     void display(SDLDisplay &display);
     void move();
 
+    Uint x() const { return _x; }
+    Uint y() const { return _y; }
+    Uint w() const { return sprite().w(); }
+    Uint h() const { return sprite().h(); }
+
 private:
     const Direction _direction;
     const Uint _x;
     Uint _y;
     Uint _timeLeftMove;
     Uint _firstTickMove;
+
+private:
+    static Image &sprite();
 };
 
 

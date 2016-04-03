@@ -25,9 +25,7 @@ Laser::~Laser()
 
 void Laser::display(SDLDisplay &display)
 {
-  static Image sprite(SDL_LoadBMP("resources/shoot.bmp"), Image::Wrap);
-
-  display.putImage(_x, _y, sprite, sprite.w(), sprite.h());
+  display.putImage(_x, _y, sprite(), sprite().w(), sprite().h());
 }
 
 void Laser::move()
@@ -48,4 +46,11 @@ void Laser::move()
     }
     _timeLeftMove -= moveCooldown;
   }
+}
+
+Image &Laser::sprite()
+{
+  static Image sprite(SDL_LoadBMP("resources/shoot.bmp"), Image::Wrap);
+
+  return sprite;
 }

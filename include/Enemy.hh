@@ -17,7 +17,12 @@ public:
 
     void display(SDLDisplay &, Uint x, Uint y);
 
+    void hit();
+
     Uint w() const { return _sprite.w(); }
+    Uint h() const { return _sprite.h(); }
+
+    bool isAlive() const { return _pv != 0; }
 
 private:
     Image &_sprite;

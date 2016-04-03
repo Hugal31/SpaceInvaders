@@ -56,6 +56,8 @@ void SpaceInvaders::run()
     shooter.move(_input.getKeyState(SDL_SCANCODE_A), _input.getKeyState(SDL_SCANCODE_D), 5, (Uint) _display.w());
     shooter.shoot(_input.getKeyState(SDL_SCANCODE_SPACE), _lasers);
     column.move(5, _display.w());
+    column.checkCollisions(_lasers);
+
     for (Laser &laser : _lasers)
     {
       laser.move();
