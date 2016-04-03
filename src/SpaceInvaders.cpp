@@ -56,6 +56,10 @@ void SpaceInvaders::run()
     shooter.move(_input.getKeyState(SDL_SCANCODE_A), _input.getKeyState(SDL_SCANCODE_D), 5, (Uint) _display.w());
     shooter.shoot(_input.getKeyState(SDL_SCANCODE_SPACE), _lasers);
     column.run(5);
+    for (Laser &laser : _lasers)
+    {
+      laser.move();
+    }
 
     Uint32 lastTick = SDL_GetTicks();
     if (lastTick - firstTick < 1000 / imagePerSecond)

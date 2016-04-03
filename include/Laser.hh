@@ -18,10 +18,11 @@ public:
     };
 
 public:
-    Laser(Uint x, Uint y, Direction direction, Uint timeLeftMove);
+    Laser(Uint x, Uint y, Direction direction);
     ~Laser();
 
     void display(SDLDisplay &display);
+    void move();
 
 private:
     const Direction _direction;

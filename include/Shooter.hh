@@ -27,8 +27,6 @@ private:
 
     Uint _timeLeftMove;
     Uint _firstTickMove;
-    Uint _timeLeftShoot;
-    Uint _firstTickShoot;
     Uint _lastTimeShoot;
 };
 

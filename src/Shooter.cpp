@@ -14,9 +14,7 @@ Shooter::Shooter(Uint maxX, Uint maxY) try
   , _y (maxY - _sprite.h())
   , _firstTickMove (SDL_GetTicks())
   , _timeLeftMove (0)
-  , _firstTickShoot (SDL_GetTicks())
-  , _timeLeftShoot (0)
-  , _lastTimeShoot (_firstTickShoot)
+  , _lastTimeShoot (SDL_GetTicks())
 {
 
 }
@@ -58,21 +56,10 @@ void Shooter::move(bool left, bool right, Uint speed, Uint maxX)
 void Shooter::shoot(bool key, std::list<Laser> &shoots)
 {
   Uint lastTick = SDL_GetTicks();
-  _timeLeftShoot += lastTick - _firstTickShoot;
-  _firstTickShoot = lastTick;
 
-  while (_timeLeftShoot > shootCooldown)
-  {
-    if (key)
-    {
-      shoots.push_back(Laser(_x + _sprite.w() / 2, _y, Laser::UP, _timeLeftShoot));
-      _lastTimeShoot = lastTick;
-    }
-    _timeLeftShoot -= shootCooldown;
-  }
   if (key && _lastTimeShoot + shootCooldown < lastTick)
   {
-    shoots.push_back(Laser(_x + _sprite.w() / 2, _y, Laser::UP, _timeLeftShoot));
+    shoots.push_back(Laser(_x + _sprite.w() / 2, _y, Laser::UP));
     _lastTimeShoot = lastTick;
   }
 }
