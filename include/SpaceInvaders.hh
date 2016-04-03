@@ -7,7 +7,9 @@
 
 #include <SDLDisplay.hh>
 #include <Input.hh>
+#include <list>
 #include <vector>
+#include "Laser.hh"
 
 class SpaceInvaders
 {
@@ -22,7 +24,9 @@ private:
     Input _input;
 
 private:
+    Image _shootSprite;
     std::vector<Image> _enemiesSprites;
+    std::list<Laser> _lasers;
 };
 
 

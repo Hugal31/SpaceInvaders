@@ -15,6 +15,7 @@ const Uint	imagePerSecond = 60;
 SpaceInvaders::SpaceInvaders() try
   : _display ("Space invaders", 800, 600)
   , _input (_display)
+  , _shootSprite (SDL_LoadBMP("resources/shoot.bmp"), Image::Wrap)
   , _enemiesSprites ({Image(SDL_LoadBMP("resources/pink.bmp"), Image::Wrap),
 		     Image(SDL_LoadBMP("resources/blue.bmp"), Image::Wrap),
 		     Image(SDL_LoadBMP("resources/yellow.bmp"), Image::Wrap)})
@@ -46,9 +47,14 @@ void SpaceInvaders::run()
     _display.clearScreen();
     column.display(_display);
     shooter.display(_display);
+    for (Laser &laser : _lasers)
+    {
+      laser.display(_display);
+    }
     _display.refreshScreen();
 
     shooter.move(_input.getKeyState(SDL_SCANCODE_A), _input.getKeyState(SDL_SCANCODE_D), 5, (Uint) _display.w());
+    shooter.shoot(_input.getKeyState(SDL_SCANCODE_SPACE), _lasers);
     column.run(5);
 
     Uint32 lastTick = SDL_GetTicks();

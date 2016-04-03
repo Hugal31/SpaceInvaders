@@ -5,7 +5,7 @@
 #include <vector>
 #include "Column.hh"
 
-const Uint	moveTime = 500;
+const Uint	moveCooldown = 500;
 
 Column::Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies)
   : _x (x)
@@ -37,9 +37,9 @@ void Column::run(Uint speed)
   _timeLeft += lastTick - _firstTick;
   _firstTick = lastTick;
 
-  while (_timeLeft > moveTime)
+  while (_timeLeft > moveCooldown)
   {
     _x += speed;
-    _timeLeft -= moveTime;
+    _timeLeft -= moveCooldown;
   }
 }

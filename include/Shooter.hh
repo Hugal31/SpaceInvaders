@@ -7,6 +7,8 @@
 
 #include <SDLDisplay.hh>
 #include <Image.hh>
+#include <list>
+#include "Laser.hh"
 
 class Shooter
 {
@@ -16,14 +18,18 @@ public:
 
     void display(SDLDisplay &display);
     void move(bool left, bool right, Uint speed, Uint maxX);
+    void shoot(bool key, std::list<Laser> &shoots);
 
 private:
     Image _sprite;
     Uint _x;
     const Uint _y;
 
-    Uint _timeLeft;
-    Uint _firstTick;
+    Uint _timeLeftMove;
+    Uint _firstTickMove;
+    Uint _timeLeftShoot;
+    Uint _firstTickShoot;
+    Uint _lastTimeShoot;
 };
 
 

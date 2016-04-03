@@ -25,7 +25,7 @@ set(SOURCE_FILES
         lib/src/error/LogicError.cpp
         lib/src/error/SDLError.cpp
         lib/src/error/StdError.cpp
-        src/main.cpp src/SpaceInvaders.cpp include/SpaceInvaders.hh src/Enemy.cpp include/Enemy.hh src/Column.cpp include/Column.hh src/Shooter.cpp include/Shooter.hh)
+        src/main.cpp src/SpaceInvaders.cpp include/SpaceInvaders.hh src/Enemy.cpp include/Enemy.hh src/Column.cpp include/Column.hh src/Shooter.cpp include/Shooter.hh src/Laser.cpp include/Laser.hh)
 
 link_directories(SDL2-2.0.4/i686-w64-mingw32/lib)
 link_libraries(mingw32 SDL2main SDL2.dll)
