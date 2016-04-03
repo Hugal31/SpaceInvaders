@@ -5,8 +5,9 @@
 #include <SDLDisplay.hh>
 #include <Input.hh>
 #include <iostream>
-#include <Column.hh>
 #include <display/Colors.hpp>
+#include "Column.hh"
+#include "Shooter.hh"
 #include "SpaceInvaders.hh"
 
 const Uint	imagePerSecond = 60;
@@ -14,7 +15,6 @@ const Uint	imagePerSecond = 60;
 SpaceInvaders::SpaceInvaders() try
   : _display ("Space invaders", 800, 600)
   , _input (_display)
-  , _shooter (SDL_LoadBMP("resources/pink.bmp"), Image::Wrap)
   , _enemiesSprites ({Image(SDL_LoadBMP("resources/pink.bmp"), Image::Wrap),
 		     Image(SDL_LoadBMP("resources/blue.bmp"), Image::Wrap),
 		     Image(SDL_LoadBMP("resources/yellow.bmp"), Image::Wrap)})
@@ -35,6 +35,7 @@ void SpaceInvaders::run()
   _display.clearScreen();
 
   Column column(_enemiesSprites, 0, 5);
+  Shooter shooter(_display.w(), _display.h());
 
   while (!_input.shouldExit())
   {
@@ -44,8 +45,11 @@ void SpaceInvaders::run()
 
     _display.clearScreen();
     column.display(_display);
-    column.run(5);
+    shooter.display(_display);
     _display.refreshScreen();
+
+    shooter.move(_input.getKeyState(SDL_SCANCODE_A), _input.getKeyState(SDL_SCANCODE_D), 5, (Uint) _display.w());
+    column.run(5);
 
     Uint32 lastTick = SDL_GetTicks();
     if (lastTick - firstTick < 1000 / imagePerSecond)

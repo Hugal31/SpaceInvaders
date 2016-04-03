@@ -22,7 +22,6 @@ private:
     Input _input;
 
 private:
-    Image	_shooter;
     std::vector<Image> _enemiesSprites;
 };
 
