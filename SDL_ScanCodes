@@ -1,0 +1,23 @@
+Un scancode est associé à chaque touche du clavier.
+
+Pavé numérique:
+
+SDL_SCANCODE_KP_n	avec n compris entre 0 et 9
+
+
+Chiffres:
+
+SDL_SCANCODE_n		avec n compris entre 0 et 9
+
+
+Lettres (Attention, qwerty):
+
+SDL_SCANCODE_A, SDL_SCANCODE_B ...
+
+
+Flèches:
+
+SDL_SCANCODE_UP
+SDL_SCANCODE_DOWN
+SDL_SCANCODE_LEFT
+SDL_SCANCODE_RIGHT

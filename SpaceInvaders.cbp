@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Space Invaders" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/MasterMind" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+					<Add directory="SDL2-2.0.4/i686-w64-mingw32/include" />
+					<Add directory="lib/include" />
+					<Add directory="lib/include/display" />
+					<Add directory="lib/include/display/context" />
+					<Add directory="lib/include/error" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add library="C:/MinGW/lib/libmingw32.a" />
+					<Add library="SDL2-2.0.4/i686-w64-mingw32/lib/libSDL2main.a" />
+					<Add library="SDL2-2.0.4/i686-w64-mingw32/lib/libSDL2.dll.a" />
+					<Add directory="SDL2-2.0.4/i686-w64-mingw32/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/MasterMind" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="lib/include/Clock.hh" />
+		<Unit filename="lib/include/display/Colors.hpp" />
+		<Unit filename="lib/include/display/GridDisplay.hh" />
+		<Unit filename="lib/include/display/Image.hh" />
+		<Unit filename="lib/include/display/SDLDisplay.hh" />
+		<Unit filename="lib/include/display/context/Input.hh" />
+		<Unit filename="lib/include/display/context/SDLContext.hh" />
+		<Unit filename="lib/include/display/context/SDLWindow.hh" />
+		<Unit filename="lib/include/error/FileError.hh" />
+		<Unit filename="lib/include/error/GenericError.hh" />
+		<Unit filename="lib/include/error/LogicError.hh" />
+		<Unit filename="lib/include/error/SDLError.hh" />
+		<Unit filename="lib/include/error/StdError.hh" />
+		<Unit filename="lib/include/types.hh" />
+		<Unit filename="lib/src/display/Image.cpp" />
+		<Unit filename="lib/src/display/SDLDisplay.cpp" />
+		<Unit filename="lib/src/display/context/Input.cpp" />
+		<Unit filename="lib/src/display/context/SDLContext.cpp" />
+		<Unit filename="lib/src/display/context/SDLWindow.cpp" />
+		<Unit filename="lib/src/error/FileError.cpp" />
+		<Unit filename="lib/src/error/GenericError.cpp" />
+		<Unit filename="lib/src/error/LogicError.cpp" />
+		<Unit filename="lib/src/error/SDLError.cpp" />
+		<Unit filename="lib/src/error/StdError.cpp" />
+		<Unit filename="src/Column.cpp" />
+		<Unit filename="src/Enemy.cpp" />
+		<Unit filename="src/SpaceInvaders.cpp" />
+		<Unit filename="src/main.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
