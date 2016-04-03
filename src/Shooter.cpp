@@ -59,7 +59,8 @@ void Shooter::shoot(bool key, std::list<Laser> &shoots)
 
   if (key && _lastTimeShoot + shootCooldown < lastTick)
   {
-    shoots.push_back(Laser(_x + _sprite.w() / 2, _y, Laser::UP));
+    std::clog << "Shooter tire un laser" << std::endl;
+    shoots.push_back(Laser(_x + _sprite.w() / 2, _y - Laser::sprite().h(), Laser::UP));
     _lastTimeShoot = lastTick;
   }
 }
@@ -67,4 +68,24 @@ void Shooter::shoot(bool key, std::list<Laser> &shoots)
 void Shooter::display(SDLDisplay &display)
 {
   display.putImage(_x, _y, _sprite, _sprite.w(), _sprite.h());
+}
+
+bool Shooter::checkCollisions(std::list<Laser> &lasers)
+{
+  auto it = lasers.begin();
+
+  while (it != lasers.end())
+  {
+    if (!((it->x() >= _x + _sprite.w())
+	  || (it->x() + it->w() <= _x)
+	  || (it->y() >= _y + _sprite.h())
+	  || (it->y() + it->h() <= _y)))
+    {
+      std::clog << "Shooter détruit" << std::endl;
+      it = lasers.erase(it);
+    }
+    else
+      it++;
+  }
+  return false;
 }

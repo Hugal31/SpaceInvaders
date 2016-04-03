@@ -29,15 +29,14 @@ public:
     Uint w() const { return sprite().w(); }
     Uint h() const { return sprite().h(); }
 
+    static Image &sprite();
+
 private:
     const Direction _direction;
     const Uint _x;
     Uint _y;
     Uint _timeLeftMove;
     Uint _firstTickMove;
-
-private:
-    static Image &sprite();
 };
 
 

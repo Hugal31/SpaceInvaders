@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <iostream>
 #include "Column.hh"
 
 const Uint	moveCooldown = 50;
@@ -11,6 +12,7 @@ const Uint	moveCooldown = 50;
 Column::Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies)
   : _direction (RIGHT)
   , _x (x)
+  , _y (0)
 {
   for (Uint i = 0; i < nbEnemies; i++)
   {
@@ -42,7 +44,7 @@ void Column::move(Uint speed, Uint maxX)
   _timeLeft += lastTick - _firstTick;
   _firstTick = lastTick;
 
-  // Faites pas gaffe à cette ligne ;)
+  // Faites pas gaffe à cette ligne, elle récupère la plus grande largeur des enemies ;)
   Uint maxSize = std::max_element(_enemies.begin(), _enemies.end(), [] (const Enemy &a, const Enemy &b) -> bool { return a.w() < b.w(); } )->w();
 
   while (_timeLeft > moveCooldown)

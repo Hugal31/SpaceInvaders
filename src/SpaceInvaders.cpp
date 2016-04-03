@@ -5,7 +5,6 @@
 #include <SDLDisplay.hh>
 #include <Input.hh>
 #include <iostream>
-#include <display/Colors.hpp>
 #include "Column.hh"
 #include "Shooter.hh"
 #include "SpaceInvaders.hh"
@@ -44,6 +43,7 @@ void SpaceInvaders::run()
 
     _input.flushEvents();
 
+    // Display
     _display.clearScreen();
     column.display(_display);
     shooter.display(_display);
@@ -53,14 +53,27 @@ void SpaceInvaders::run()
     }
     _display.refreshScreen();
 
+    // Handle user events
     shooter.move(_input.getKeyState(SDL_SCANCODE_A), _input.getKeyState(SDL_SCANCODE_D), 5, (Uint) _display.w());
     shooter.shoot(_input.getKeyState(SDL_SCANCODE_SPACE), _lasers);
+
+    // Handle game events
+    shooter.checkCollisions(_lasers);
     column.move(5, _display.w());
     column.checkCollisions(_lasers);
 
-    for (Laser &laser : _lasers)
+    auto it = _lasers.begin();
+    while (it != _lasers.end())
     {
-      laser.move();
+      it->move();
+      if (it->y() > _display.h()
+	  || it->y() + it->h() < 0)
+      {
+	std::clog << "Delete laser" << std::endl;
+	it = _lasers.erase(it);
+      }
+      else
+	it++;
     }
 
     Uint32 lastTick = SDL_GetTicks();

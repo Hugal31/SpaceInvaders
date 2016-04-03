@@ -19,6 +19,7 @@ public:
     void display(SDLDisplay &display);
     void move(bool left, bool right, Uint speed, Uint maxX);
     void shoot(bool key, std::list<Laser> &shoots);
+    bool checkCollisions(std::list<Laser> &lasers);
 
 private:
     Image _sprite;
