@@ -13,6 +13,8 @@ Column::Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies)
   : _direction (RIGHT)
   , _x (x)
   , _y (0)
+  , _lastShoot (SDL_GetTicks())
+  , _shootCooldown ((rand() % 5 + 2) * 1000) // Entre 2 et 7 secondes
 {
   for (Uint i = 0; i < nbEnemies; i++)
   {
@@ -20,6 +22,9 @@ Column::Column(std::vector<Image> &sprites, Uint x, Uint nbEnemies)
   }
   _firstTick = SDL_GetTicks();
   _timeLeft = 0;
+
+  // Faites pas gaffe à cette ligne, elle récupère la plus grande largeur des enemies ;)
+  _width = std::max_element(_enemies.begin(), _enemies.end(), [] (const Enemy &a, const Enemy &b) -> bool { return a.w() < b.w(); } )->w();
 }
 
 Column::~Column()
@@ -44,20 +49,17 @@ void Column::move(Uint speed, Uint maxX)
   _timeLeft += lastTick - _firstTick;
   _firstTick = lastTick;
 
-  // Faites pas gaffe à cette ligne, elle récupère la plus grande largeur des enemies ;)
-  Uint maxSize = std::max_element(_enemies.begin(), _enemies.end(), [] (const Enemy &a, const Enemy &b) -> bool { return a.w() < b.w(); } )->w();
-
   while (_timeLeft > moveCooldown)
   {
     if (_direction == RIGHT)
     {
-      if (_x + maxSize + speed < maxX)
+      if (_x + _width + speed < maxX)
       {
 	_x += speed;
       }
       else
       {
-	_x = maxX - maxSize;
+	_x = maxX - _width;
 	_direction = LEFT;
 	_y += 10;
       }
@@ -76,6 +78,31 @@ void Column::move(Uint speed, Uint maxX)
       }
     }
     _timeLeft -= moveCooldown;
+  }
+}
+
+void Column::shoot(std::list<Laser> &lasers)
+{
+  Uint lastTick = SDL_GetTicks();
+
+  while (lastTick - _lastShoot > _shootCooldown)
+  {
+    std::clog << "Enemies shoot" << std::endl;
+
+    Uint y = _y;
+    Uint tmp = _y;
+    for (Enemy &enemy : _enemies)
+    {
+      tmp += enemy.h();
+      if (enemy.isAlive())
+      {
+	y = tmp;
+      }
+      tmp += 10;
+    }
+    lasers.push_back(Laser(_x + _width / 2, y, Laser::DOWN));
+    _lastShoot += _shootCooldown;
+    _shootCooldown = (rand() % 5 + 2) * 1000;
   }
 }
 

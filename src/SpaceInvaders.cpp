@@ -60,8 +60,10 @@ void SpaceInvaders::run()
     // Handle game events
     shooter.checkCollisions(_lasers);
     column.move(5, _display.w());
+    column.shoot(_lasers);
     column.checkCollisions(_lasers);
 
+    // On parcourt tous les lasers et on supprime ceux qui sont hors de l'écran
     auto it = _lasers.begin();
     while (it != _lasers.end())
     {

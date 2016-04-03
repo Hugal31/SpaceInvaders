@@ -24,6 +24,7 @@ public:
 
     void display(SDLDisplay &display);
     void move(Uint speed, Uint maxX);
+    void shoot(std::list<Laser> &lasers);
     void checkCollisions(std::list<Laser> &lasers);
 
 private:
@@ -33,6 +34,9 @@ private:
     Uint _y;
     Uint _firstTick;
     Uint _timeLeft;
+    Uint _lastShoot;
+    Uint _shootCooldown;
+    Uint _width;
 };
 
 
